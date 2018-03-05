@@ -1,24 +1,18 @@
 import React, { Component, Fragment } from 'react';
-import { Route, BrowserRouter as Router, Redirect, Switch } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import auth0 from 'auth0-js';
 import Home from './Home';
-import logo from './logo.svg';
+import Callback from './Callback';
+import { authConfig } from '../config';
+import logo from '../assets/logo.svg';
 import './App.css';
 
-const CLIENT_ID = 'gbfAXSmOKKHvBOdv49KHQv6Hd0TWbSmY';
-const CLIENT_DOMAIN = 'mark-williams.eu.auth0.com';
-
-const Callback = () => {
-  return (
-    <Redirect to="/secure" />
-  );
-};
 
 class App extends Component {
   componentWillMount = () => {
     this.webAuth = new auth0.WebAuth({
-      domain: CLIENT_DOMAIN,
-      clientID: CLIENT_ID
+      domain: authConfig.clientDomain,
+      clientID: authConfig.clientId
     });
   }
 
