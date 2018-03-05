@@ -1,8 +1,10 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 
 class Home extends React.Component {
   login = () => {
-    this.props.lock.authorize({ responseType: 'token', redirectUri: 'http://localhost:3000/callback' });
+    const { lock } = this.props;
+    lock.authorize({ responseType: 'token', redirectUri: 'http://localhost:3000/callback' });
   }
 
   render = () => {
@@ -15,5 +17,9 @@ class Home extends React.Component {
     );
   }
 }
+
+Home.propTypes = {
+  lock: PropTypes.object
+};
 
 export default Home;
