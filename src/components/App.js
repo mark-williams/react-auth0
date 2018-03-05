@@ -4,11 +4,14 @@ import auth0 from 'auth0-js';
 import Home from './Home';
 import Callback from './Callback';
 import { authConfig } from '../config';
+import AuthService from '../services/authService';
 import logo from '../assets/logo.svg';
 import './App.css';
 
 
 class App extends Component {
+  authService = new AuthService();
+
   componentWillMount = () => {
     this.webAuth = new auth0.WebAuth({
       domain: authConfig.clientDomain,
@@ -27,7 +30,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" render={() => <Home lock={this.webAuth} />} />
             <Route path="/secure" render={() => <Fragment><h2>Secure Area</h2></Fragment>} />
-            <Route path="/callback" component={Callback} />
+            <Route path="/callback" render={(props) => <Callback auth={this.authService} {...props} />} />
           </Switch>
         </Router>
       </div>

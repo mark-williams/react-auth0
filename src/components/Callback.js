@@ -1,10 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 
-const Callback = () => {
+const Callback = (props) => {
+  const { auth } = props;
+  auth.authenticate();
+
   return (
-    <Redirect to="/secure" />
+    auth.isAuthenticated ? <Redirect to="/secure" /> : <div>Error logging in!</div>
   );
+};
+
+Callback.propTypes = {
+  auth: PropTypes.object
 };
 
 export default Callback;
