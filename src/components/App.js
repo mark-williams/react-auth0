@@ -28,7 +28,7 @@ class App extends Component {
         </header>
         <Router>
           <Switch>
-            <Route exact path="/" render={() => <Home lock={this.webAuth} />} />
+            <Route exact path="/" render={() => <Home auth={this.authService} />} />
             <Route path="/secure" render={() => <Fragment><h2>Secure Area</h2></Fragment>} />
             <Route path="/callback" render={(props) => <Callback auth={this.authService} {...props} />} />
           </Switch>

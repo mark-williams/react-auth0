@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 class Home extends React.Component {
   login = () => {
-    const { lock } = this.props;
-    lock.authorize({ responseType: 'token', redirectUri: 'http://localhost:3000/callback' });
+    const { auth } = this.props;
+    auth.authorize({ responseType: 'token', redirectUri: 'http://localhost:3000/callback' });
   }
 
   render = () => {
@@ -19,7 +19,7 @@ class Home extends React.Component {
 }
 
 Home.propTypes = {
-  lock: PropTypes.object
+  auth: PropTypes.object
 };
 
 export default Home;
