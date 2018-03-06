@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import styled from 'styled-components'
 import auth0 from 'auth0-js';
 import Home from './Home';
 import Callback from './Callback';
@@ -8,6 +9,16 @@ import AuthService from '../services/authService';
 import logo from '../assets/logo.svg';
 import './App.css';
 
+const AppContainer = styled.div`
+  text-align: center
+`;
+
+const AppHeader = styled.header`
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+`;
 
 class App extends Component {
   authService = new AuthService();
@@ -21,11 +32,11 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
+      <AppContainer>
+        <AppHeader>
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
-        </header>
+        </AppHeader>
         <Router>
           <Switch>
             <Route exact path="/" render={() => <Home auth={this.authService} />} />
@@ -33,7 +44,7 @@ class App extends Component {
             <Route path="/callback" render={(props) => <Callback auth={this.authService} {...props} />} />
           </Switch>
         </Router>
-      </div>
+      </AppContainer>
     );
   }
 }
