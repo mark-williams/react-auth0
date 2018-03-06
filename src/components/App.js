@@ -6,8 +6,8 @@ import Home from './Home';
 import Callback from './Callback';
 import { authConfig } from '../config';
 import AuthService from '../services/authService';
-import logo from '../assets/logo.svg';
-import './App.css';
+import HeaderLogo from './HeaderLogo';
+
 
 const AppContainer = styled.div`
   text-align: center
@@ -15,9 +15,13 @@ const AppContainer = styled.div`
 
 const AppHeader = styled.header`
   background-color: #222;
-  height: 150px;
+  height: 120px;
   padding: 20px;
   color: white;
+`;
+
+const AppTitle = styled.div`
+  font-size: 1.5em;
 `;
 
 class App extends Component {
@@ -34,8 +38,8 @@ class App extends Component {
     return (
       <AppContainer>
         <AppHeader>
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <HeaderLogo />
+          <AppTitle>Welcome!</AppTitle>
         </AppHeader>
         <Router>
           <Switch>
