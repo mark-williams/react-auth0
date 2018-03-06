@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import styled from 'styled-components'
+import styled from 'styled-components';
 import auth0 from 'auth0-js';
 import Home from './Home';
 import Callback from './Callback';
