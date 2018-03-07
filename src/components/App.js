@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 import auth0 from 'auth0-js';
 import Home from './Home';
@@ -26,6 +26,13 @@ const AppTitle = styled.div`
   font-size: 1.5em;
 `;
 
+const ProtectedRoute = ({ auth, ...rest }) => {
+  if (auth.isAuthenticated()) {
+    return <Route {...rest} />
+  }
+
+  return <Redirect to="/home" />;
+}
 
 class App extends Component {
   authService = new AuthService();
@@ -48,9 +55,10 @@ class App extends Component {
             </AppHeader>
             <Navigation />
             <Switch>
-              <Route exact path="/" render={() => <Home auth={this.authService} />} />
-              <Route exact path="/secure" render={() => <Fragment><h2>Secure Area</h2></Fragment>} />
+              <Route exact path="/home" render={() => <Home auth={this.authService} />} />
+              <ProtectedRoute exact path="/secure" render={() => <Fragment><h2>Secure Area</h2></Fragment>} auth={this.authService} />
               <Route path="/callback" render={(props) => <Callback auth={this.authService} {...props} />} />
+              <Route render={() => <Home auth={this.authService} />} />
             </Switch>
           </Fragment>
         </Router>

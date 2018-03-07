@@ -38,7 +38,7 @@ const NavigationContainer = styled.nav`
 const Navigation = () => (
   <NavigationContainer>
     <ul>
-      <li><NavLink exact="true" activeClassName="active" to="/">Home</NavLink></li>
+      <li><NavLink exact activeClassName="active" to="/home">Home</NavLink></li>
       <li><NavLink activeClassName="active" to="/secure">Secure</NavLink></li>
     </ul>
   </NavigationContainer>

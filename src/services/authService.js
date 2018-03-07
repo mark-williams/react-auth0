@@ -8,8 +8,7 @@ class AuthService {
   });
 
   authorize = () => {
-    this.isAuthenticated = true;
-    this.webAuth.authorize({ responseType: 'token', redirectUri: 'http://localhost:3000/callback' });
+    this.webAuth.authorize({ responseType: 'token id_token', redirectUri: 'http://localhost:3000/callback' });
   }
 
   handleAuthentication(history) {
