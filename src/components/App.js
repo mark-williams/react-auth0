@@ -1,9 +1,8 @@
 import React, { Component, Fragment } from 'react';
-import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import styled from 'styled-components';
 import auth0 from 'auth0-js';
-import Home from './Home';
-import Callback from './Callback';
+import Routes from './Routes';
 import { authConfig } from '../config';
 import AuthService from '../services/authService';
 import HeaderLogo from './HeaderLogo';
@@ -26,14 +25,6 @@ const AppTitle = styled.div`
   font-size: 1.5em;
 `;
 
-const ProtectedRoute = ({ auth, ...rest }) => {
-  if (auth.isAuthenticated()) {
-    return <Route {...rest} />
-  }
-
-  return <Redirect to="/home" />;
-}
-
 class App extends Component {
   authService = new AuthService();
 
@@ -54,12 +45,7 @@ class App extends Component {
               <AppTitle>Welcome!</AppTitle>
             </AppHeader>
             <Navigation />
-            <Switch>
-              <Route exact path="/home" render={() => <Home auth={this.authService} />} />
-              <ProtectedRoute exact path="/secure" render={() => <Fragment><h2>Secure Area</h2></Fragment>} auth={this.authService} />
-              <Route path="/callback" render={(props) => <Callback auth={this.authService} {...props} />} />
-              <Route render={() => <Home auth={this.authService} />} />
-            </Switch>
+            <Routes auth={this.authService} />
           </Fragment>
         </Router>
       </AppContainer>

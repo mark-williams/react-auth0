@@ -7,12 +7,17 @@ class Home extends React.Component {
     auth.authorize({ responseType: 'token', redirectUri: 'http://localhost:3000/callback' });
   }
 
+  renderLogin = () => {
+    const { auth } = this.props;
+    return auth.isAuthenticated() === false ? <button onClick={this.login}>Login</button> : null;
+  }
+
   render = () => {
     return (
       <Fragment>
         <h1>Home</h1>
         <p>Welcome - here's the application home</p>
-        <button onClick={this.login}>Login</button>
+        {this.renderLogin()}
       </Fragment>
     );
   }
