@@ -7,6 +7,7 @@ import { authConfig } from '../config';
 import AuthService from '../services/authService';
 import HeaderLogo from './HeaderLogo';
 import Navigation from './Navigation';
+import colours from '../style/colours';
 
 
 const AppContainer = styled.div`
@@ -14,7 +15,7 @@ const AppContainer = styled.div`
 `;
 
 const AppHeader = styled.header`
-  background-color: #222;
+  background-color: ${colours.headerBackground};
   height: 120px;
   padding: 20px;
   margin: 0;

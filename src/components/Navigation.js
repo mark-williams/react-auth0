@@ -1,11 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import colours from '../style/colours';
 
 const NavigationContainer = styled.nav`
   margin: 0;
-  background-color: hsl(240, 0%, 33%);
-  color: hsl(0, 0%, 100%);
+  background-color: ${colours.navigationBackground};
   & > ul {
     height: 40px;
     margin: 0;
@@ -20,15 +20,15 @@ const NavigationContainer = styled.nav`
       text-decoration: none;
       & a {
         text-decoration: none;
-        color: hsl(0, 0%, 90%);
+        color: ${colours.navigationItem};
         &.active {
-          border-bottom: 2px solid pink;
+          border-bottom: 2px solid ${colours.navigationActive};
         }
         &:visited {
-          color: hsl(0, 0%, 90%);
+          color: ${colours.navigationItem};
         }
         &:hover {
-          color: white;
+          color: ${colours.navigationItemEmphasis};
         }
       }
     }
