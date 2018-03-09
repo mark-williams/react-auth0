@@ -36,6 +36,10 @@ class App extends Component {
     });
   }
 
+  onLogout = () => {
+    this.authService.logout();
+  }
+
   render() {
     return (
       <AppContainer>
@@ -45,7 +49,7 @@ class App extends Component {
               <HeaderLogo />
               <AppTitle>Welcome!</AppTitle>
             </AppHeader>
-            <Navigation />
+            <Navigation onLogout={this.onLogout} />
             <Routes auth={this.authService} />
           </Fragment>
         </Router>

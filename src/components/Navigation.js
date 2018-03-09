@@ -3,10 +3,13 @@ import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import colours from '../style/colours';
 
-const NavigationContainer = styled.nav`
+const NavigationContainer = styled.div`
   margin: 0;
   background-color: ${colours.navigationBackground};
-  & > ul {
+  display: flex;
+  flex-direction: row;
+  & ul {
+    flex: 1;
     height: 40px;
     margin: 0;
     padding: 0;
@@ -33,14 +36,38 @@ const NavigationContainer = styled.nav`
       }
     }
   };
+  `;
+const LinksContainer = styled.nav`
+  flex: 1;
 `;
 
-const Navigation = () => (
+const UserControls = styled.div`
+    display: flex;
+    flex: 1;
+    flex-direaction: row;
+    justify-content: flex-end;
+    padding: 4px;
+    margin: 0;
+`;
+
+const AuthButton = styled.button`
+  background-color: hsl(122, 25%, 50%);
+  color: hsl(0, 0%, 100%);
+  border: 0;
+  width: 4rem;
+`;
+
+const Navigation = ({onLogout}) => (
   <NavigationContainer>
-    <ul>
-      <li><NavLink exact activeClassName="active" to="/home">Home</NavLink></li>
-      <li><NavLink activeClassName="active" to="/secure">Secure</NavLink></li>
-    </ul>
+    <LinksContainer>
+      <ul>
+        <li><NavLink exact activeClassName="active" to="/home">Home</NavLink></li>
+        <li><NavLink activeClassName="active" to="/secure">Secure</NavLink></li>
+      </ul>
+    </LinksContainer>
+    <UserControls>
+      <AuthButton onClick={onLogout}>Logout</AuthButton>
+    </UserControls>
   </NavigationContainer>
 );
 
