@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import colours from '../style/colours';
 
 const NavigationContainer = styled.div`
   margin: 0;
+  height: 40px;
   background-color: ${colours.navigationBackground};
   display: flex;
   flex-direction: row;
@@ -44,20 +46,27 @@ const LinksContainer = styled.nav`
 const UserControls = styled.div`
     display: flex;
     flex: 1;
-    flex-direaction: row;
+    height: 100%;
+    flex-direction: horizontal;
     justify-content: flex-end;
-    padding: 4px;
+    align-items: center;
     margin: 0;
+    padding-right: 4px;
 `;
 
+const UserName = styled.span`
+  color: hsl(0, 0%, 82%);
+  margin-right: 1rem;
+`;
 const AuthButton = styled.button`
   background-color: hsl(122, 25%, 50%);
   color: hsl(0, 0%, 100%);
   border: 0;
+  height: 1.4rem;
   width: 4rem;
 `;
 
-const Navigation = ({onLogout}) => (
+const Navigation = ({isLoggedIn, userName, onLogin, onLogout}) => (
   <NavigationContainer>
     <LinksContainer>
       <ul>
@@ -66,10 +75,23 @@ const Navigation = ({onLogout}) => (
       </ul>
     </LinksContainer>
     <UserControls>
-      <AuthButton onClick={onLogout}>Logout</AuthButton>
+      {isLoggedIn ?
+        <Fragment>
+          <UserName>{userName}</UserName>
+          <AuthButton onClick={onLogout}>Logout</AuthButton>
+        </Fragment> :
+        <AuthButton onClick={onLogin}>Login</AuthButton>
+      }
     </UserControls>
   </NavigationContainer>
 );
+
+Navigation.propTypes = {
+  isLoggedIn: PropTypes.bool,
+  userName: PropTypes.string,
+  onLogin: PropTypes.func,
+  onLogout: PropTypes.func
+};
 
 export default Navigation;
 

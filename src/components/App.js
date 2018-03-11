@@ -1,9 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import styled from 'styled-components';
-import auth0 from 'auth0-js';
 import Routes from './Routes';
-import { authConfig } from '../config';
 import AuthService from '../services/authService';
 import HeaderLogo from './HeaderLogo';
 import Navigation from './Navigation';
@@ -29,11 +27,8 @@ const AppTitle = styled.div`
 class App extends Component {
   authService = new AuthService();
 
-  componentWillMount = () => {
-    this.webAuth = new auth0.WebAuth({
-      domain: authConfig.clientDomain,
-      clientID: authConfig.clientId
-    });
+  onLogin = () => {
+    this.authService.authorize();
   }
 
   onLogout = () => {
@@ -41,6 +36,8 @@ class App extends Component {
   }
 
   render() {
+    const isLoggedIn = this.authService.isAuthenticated();
+    const userName = isLoggedIn ? this.authService.getUserName() : '';
     return (
       <AppContainer>
         <Router>
@@ -49,7 +46,7 @@ class App extends Component {
               <HeaderLogo />
               <AppTitle>Welcome!</AppTitle>
             </AppHeader>
-            <Navigation onLogout={this.onLogout} />
+            <Navigation isLoggedIn={isLoggedIn} userName={userName} onLogin={this.onLogin} onLogout={this.onLogout} />
             <Routes auth={this.authService} />
           </Fragment>
         </Router>

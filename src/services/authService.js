@@ -15,6 +15,7 @@ class AuthService {
     this.webAuth.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
+        window.location.href = '/';
       } else if (err) {
         history.replace('/home');
       }
@@ -27,6 +28,11 @@ class AuthService {
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
+    localStorage.setItem('nickname', authResult.idTokenPayload.nickname);
+  }
+
+  getUserName() {
+    return localStorage.getItem('nickname');
   }
 
   logout() {
@@ -34,6 +40,9 @@ class AuthService {
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
+    localStorage.removeItem('nickname');
+
+    window.location.href = '/';
   }
 
   isAuthenticated() {

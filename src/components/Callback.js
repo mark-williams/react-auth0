@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
 
 const Callback = (props) => {
   const { auth, location, history } = props;
@@ -10,7 +9,7 @@ const Callback = (props) => {
   }
 
   return (
-    auth.isAuthenticated ? <Redirect to="/secure" /> : <div>Error logging in!</div>
+    <h2>Logging on...</h2>
   );
 };
 
