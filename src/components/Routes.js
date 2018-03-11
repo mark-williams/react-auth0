@@ -21,7 +21,8 @@ const Routes = ({ auth }) => (
     <Route exact path="/home" render={() => <Home auth={auth} />} />
     <ProtectedRoute exact path="/secure" render={() => <Fragment><h2>Secure Area</h2></Fragment>} auth={auth} />
     <Route path="/callback" render={(props) => <Callback auth={auth} {...props} />} />
-    <Route render={() => <Home auth={auth} />} />
+    {/* //<Route render={() => <Home auth={auth} />} /> */}
+    <Redirect to={'/home'} />
   </Switch>
 );
 
