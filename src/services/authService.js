@@ -16,24 +16,11 @@ class AuthService {
       this.webAuth.parseHash((err, authResult) => {
         if (authResult && authResult.accessToken && authResult.idToken) {
           this.setSession(authResult);
-          //window.location.href = '/';
           resolve(1000);
         } else if (err) {
           reject(err);
         }
       });
-    });
-  }
-
-  handleAuthentication() {
-    this.webAuth.parseHash((err, authResult) => {
-      if (authResult && authResult.accessToken && authResult.idToken) {
-        this.setSession(authResult);
-        //window.location.href = '/';
-        return Promise.resolve(0);
-      } else if (err) {
-        return Promise.reject(err);
-      }
     });
   }
 

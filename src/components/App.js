@@ -35,7 +35,7 @@ class App extends Component {
       this.setState({ isLoggedOn: true });
       return;
     }
-    
+
     if (/access_token|id_token|error/.test(window.location.hash)) {
       this.authService
         .handleAuth()
