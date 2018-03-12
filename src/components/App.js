@@ -26,6 +26,24 @@ const AppTitle = styled.div`
 
 class App extends Component {
   authService = new AuthService();
+  state = {
+    isLoggedOn: false
+  };
+
+  componentWillMount = () => {
+    if (this.authService.isAuthenticated()) {
+      this.setState({ isLoggedOn: true });
+      return;
+    }
+    
+    if (/access_token|id_token|error/.test(window.location.hash)) {
+      this.authService
+        .handleAuth()
+        .then(() => {
+          this.setState({ isLoggedOn: true });
+        });
+    }
+  }
 
   onLogin = () => {
     this.authService.authorize();
@@ -36,8 +54,8 @@ class App extends Component {
   }
 
   render() {
-    const isLoggedIn = this.authService.isAuthenticated();
-    const userName = isLoggedIn ? this.authService.getUserName() : '';
+    const userName = this.state.isLoggedOn ? this.authService.getUserName() : '';
+
     return (
       <AppContainer>
         <Router>
@@ -46,7 +64,7 @@ class App extends Component {
               <HeaderLogo />
               <AppTitle>Welcome!</AppTitle>
             </AppHeader>
-            <Navigation isLoggedIn={isLoggedIn} userName={userName} onLogin={this.onLogin} onLogout={this.onLogout} />
+            <Navigation isLoggedIn={this.state.isLoggedOn} userName={userName} onLogin={this.onLogin} onLogout={this.onLogout} />
             <Routes auth={this.authService} />
           </Fragment>
         </Router>

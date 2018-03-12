@@ -11,13 +11,28 @@ class AuthService {
     this.webAuth.authorize({ responseType: 'token id_token', redirectUri: 'http://localhost:3000/callback' });
   }
 
-  handleAuthentication(history) {
+  handleAuth = () => {
+    return new Promise((resolve, reject) => {
+      this.webAuth.parseHash((err, authResult) => {
+        if (authResult && authResult.accessToken && authResult.idToken) {
+          this.setSession(authResult);
+          //window.location.href = '/';
+          resolve(1000);
+        } else if (err) {
+          reject(err);
+        }
+      });
+    });
+  }
+
+  handleAuthentication() {
     this.webAuth.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
-        window.location.href = '/';
+        //window.location.href = '/';
+        return Promise.resolve(0);
       } else if (err) {
-        history.replace('/home');
+        return Promise.reject(err);
       }
     });
   }
